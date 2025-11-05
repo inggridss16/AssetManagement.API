@@ -1,0 +1,244 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\project\\assesment\\2025\\AssetManagement.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\services\\assetservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:services\\assetservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\services\\workflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:services\\workflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\assetmanagementdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\assetmanagementdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetManagementContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Models\\AssetManagementContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\assetcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\assetcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\mstuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\mstuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\maintenanceupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\maintenanceupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\trxassetapproval.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\trxassetapproval.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\assetupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\assetupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\mstdepartment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\mstdepartment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\models\\trxasset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:models\\trxasset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|c:\\project\\assesment\\2025\\assetmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9BFFB5CA-A123-453E-9A65-A379C6660285}|AssetManagement.API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAABUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T12:52:29.768Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AssetService.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Services\\AssetService.cs",
+              "RelativeDocumentMoniker": "Services\\AssetService.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Services\\AssetService.cs",
+              "RelativeToolTip": "Services\\AssetService.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAkwFAAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:00:39.498Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WorkflowService.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Services\\WorkflowService.cs",
+              "RelativeDocumentMoniker": "Services\\WorkflowService.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Services\\WorkflowService.cs",
+              "RelativeToolTip": "Services\\WorkflowService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAnwBoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:00:10.87Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AssetManagementContext.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetManagementContext.cs",
+              "RelativeDocumentMoniker": "Models\\AssetManagementContext.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetManagementContext.cs",
+              "RelativeToolTip": "Models\\AssetManagementContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:35:09.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AssetCreateDto.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetCreateDto.cs",
+              "RelativeDocumentMoniker": "Models\\AssetCreateDto.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetCreateDto.cs",
+              "RelativeToolTip": "Models\\AssetCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:34:12.571Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AssetManagementDbContext.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetManagementDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\AssetManagementDbContext.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetManagementDbContext.cs",
+              "RelativeToolTip": "Models\\AssetManagementDbContext.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:33:14.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Services\\AuthService.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Services\\AuthService.cs",
+              "RelativeToolTip": "Services\\AuthService.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwCIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:11:56.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AssetUpdateDto.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetUpdateDto.cs",
+              "RelativeDocumentMoniker": "Models\\AssetUpdateDto.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\AssetUpdateDto.cs",
+              "RelativeToolTip": "Models\\AssetUpdateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:05:52.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MaintenanceUpdateDto.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\MaintenanceUpdateDto.cs",
+              "RelativeDocumentMoniker": "Models\\MaintenanceUpdateDto.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\MaintenanceUpdateDto.cs",
+              "RelativeToolTip": "Models\\MaintenanceUpdateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:05:48.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MstDepartment.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\MstDepartment.cs",
+              "RelativeDocumentMoniker": "Models\\MstDepartment.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\MstDepartment.cs",
+              "RelativeToolTip": "Models\\MstDepartment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:05:47.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MstUser.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\MstUser.cs",
+              "RelativeDocumentMoniker": "Models\\MstUser.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\MstUser.cs",
+              "RelativeToolTip": "Models\\MstUser.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAUwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:05:45.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TrxAsset.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\TrxAsset.cs",
+              "RelativeDocumentMoniker": "Models\\TrxAsset.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\TrxAsset.cs",
+              "RelativeToolTip": "Models\\TrxAsset.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:05:43.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TrxAssetApproval.cs",
+              "DocumentMoniker": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\TrxAssetApproval.cs",
+              "RelativeDocumentMoniker": "Models\\TrxAssetApproval.cs",
+              "ToolTip": "C:\\project\\assesment\\2025\\AssetManagement.API\\Models\\TrxAssetApproval.cs",
+              "RelativeToolTip": "Models\\TrxAssetApproval.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBEAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T14:05:19.271Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
