@@ -27,6 +27,21 @@ namespace AssetManagement.API.Controllers
             return Ok(records);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMaintenanceRecordById(string assetId, long id)
+        {
+            var record = await _maintenanceService.GetMaintenanceRecordByIdAsync(id);
+
+            // Ensure the record exists and is associated with the correct asset
+            if (record == null || record.LinkedAssetId != assetId)
+            {
+                return NotFound();
+            }
+
+            return Ok(record);
+        }
+
+
         [HttpPost]
         [Authorize(Roles = "manager")]
         public async Task<IActionResult> AddMaintenanceRecord(string assetId, [FromBody] MaintenanceCreateDto recordDto)

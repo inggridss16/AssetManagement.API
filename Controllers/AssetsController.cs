@@ -35,6 +35,14 @@ namespace AssetManagement.API.Controllers
             return Ok(asset);
         }
 
+        [HttpGet("myAssets")]
+        public async Task<IActionResult> GetAssetByCurrentUser()
+        {
+            long currentUserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var assets = await _assetService.GetAssetsByUserIdAsync(currentUserId);
+            return Ok(assets);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAsset([FromBody] AssetCreateDto assetDto)
         {

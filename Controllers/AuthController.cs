@@ -2,6 +2,7 @@
 using AssetManagement.API.Models;
 using AssetManagement.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace AssetManagement.API.Controllers
@@ -18,23 +19,42 @@ namespace AssetManagement.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(MstUser user, string password)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
-                var createdUser = await _authService.RegisterAsync(user, password);
-                return Ok(createdUser);
+                // Map DTO to the MstUser entity
+                var user = new MstUser
+                {
+                    Name = registerDto.Name,
+                    DepartmentId = registerDto.DepartmentId,
+                    Title = registerDto.Title,
+                    SupervisorId = registerDto.SupervisorId,
+                    IsAssetManager = registerDto.IsAssetManager,
+                    CreatedDate = DateTime.UtcNow,
+                    CreatedBy = 0 // Represents self-registration or a system default
+                };
+
+                var createdUser = await _authService.RegisterAsync(user, registerDto.Password);
+
+                // Avoid returning the createdUser object which contains the password hash
+                return Ok(new { Message = "User registered successfully." });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var token = await _authService.LoginAsync(username, password);
+            var token = await _authService.LoginAsync(loginDto.Username, loginDto.Password);
 
             if (token == null)
             {

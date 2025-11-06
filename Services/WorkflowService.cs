@@ -23,16 +23,18 @@ namespace AssetManagement.API.Services
 
             var approvals = new List<TrxAssetApproval>();
 
-            // Add approval for the Department Head (Supervisor)
-            var departmentHeadId = requester.SupervisorId;
-            approvals.Add(new TrxAssetApproval
+            // MODIFIED: Add approval for the Department Head (Supervisor) only if SupervisorId is not 0
+            if (requester.SupervisorId != 0)
             {
-                AssetId = assetId,
-                ApproverId = departmentHeadId,
-                Status = "Pending",
-                CreatedBy = requesterId,
-                CreatedDate = DateTime.UtcNow,
-            });
+                approvals.Add(new TrxAssetApproval
+                {
+                    AssetId = assetId,
+                    ApproverId = requester.SupervisorId,
+                    Status = "Pending",
+                    CreatedBy = requesterId,
+                    CreatedDate = DateTime.UtcNow,
+                });
+            }
 
             // Find all Asset Managers in the same department
             var assetManagers = await _context.MstUsers
@@ -41,9 +43,6 @@ namespace AssetManagement.API.Services
 
             if (!assetManagers.Any())
             {
-                // Handle case where no asset manager is found in the department
-                // Depending on business rules, this could throw an exception or auto-approve this step.
-                // For now, let's throw an exception.
                 throw new System.Exception($"No Asset Manager found in department ID {requester.DepartmentId}.");
             }
 
@@ -108,16 +107,15 @@ namespace AssetManagement.API.Services
         private async Task CheckWorkflowStatusAsync(string assetId)
         {
             var asset = await _context.TrxAssets.FindAsync(assetId);
-            if (asset == null) return; // Asset not found, exit
+            if (asset == null) return;
 
             var requester = await _context.MstUsers.FindAsync(asset.RequesterId);
-            if (requester == null) return; // Requester not found, exit
+            if (requester == null) return;
 
             var approvals = await _context.TrxAssetApprovals
                 .Where(a => a.AssetId == assetId)
                 .ToListAsync();
 
-            // If any approver rejects, the process ends, and the asset is discarded.
             if (approvals.Any(a => a.Status == "Rejected"))
             {
                 asset.Status = "Discarded";
@@ -125,26 +123,26 @@ namespace AssetManagement.API.Services
                 return;
             }
 
-            // Identify the required approvers
-            var departmentHeadId = requester.SupervisorId;
+            // MODIFIED: Determine if department head approval is required and check its status.
+            bool isHeadApproved = requester.SupervisorId == 0; // Default to true if no supervisor
+            if (!isHeadApproved)
+            {
+                isHeadApproved = approvals.Any(a => a.ApproverId == requester.SupervisorId && a.Status == "Approved");
+            }
+
+            // Check if at least one asset manager has approved
             var assetManagerIds = await _context.MstUsers
                 .Where(u => u.DepartmentId == requester.DepartmentId && u.IsAssetManager)
                 .Select(u => u.Id)
                 .ToListAsync();
 
-            // Check if the department head has approved
-            bool isHeadApproved = approvals.Any(a => a.ApproverId == departmentHeadId && a.Status == "Approved");
-
-            // Check if at least one asset manager has approved
             bool isManagerApproved = approvals.Any(a => assetManagerIds.Contains(a.ApproverId) && a.Status == "Approved");
 
-            // If both conditions are met, the asset is assigned.
+            // If all required approvals are met, the asset is assigned.
             if (isHeadApproved && isManagerApproved)
             {
                 asset.Status = "Assigned";
             }
-            // Note: If conditions are not met, but there are no rejections,
-            // the asset status remains "Under Review" until all required approvals are in.
 
             await _context.SaveChangesAsync();
         }

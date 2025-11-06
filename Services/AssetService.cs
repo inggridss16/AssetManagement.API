@@ -1,4 +1,5 @@
-﻿using AssetManagement.API.Models;
+﻿// Services/AssetService.cs
+using AssetManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,16 @@ namespace AssetManagement.API.Services
         public async Task<TrxAsset> GetAssetByIdAsync(string id)
         {
             return await _context.TrxAssets.FindAsync(id);
+        }
+
+        /// <summary>
+        /// Retrieves all assets requested by a specific user.
+        /// </summary>
+        public async Task<IEnumerable<TrxAsset>> GetAssetsByUserIdAsync(long userId)
+        {
+            return await _context.TrxAssets
+                .Where(a => a.RequesterId == userId)
+                .ToListAsync();
         }
 
         /// <summary>
