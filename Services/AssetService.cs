@@ -1,5 +1,4 @@
-﻿// Services/AssetService.cs
-using AssetManagement.API.Models;
+﻿using AssetManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -109,18 +108,30 @@ namespace AssetManagement.API.Services
         }
 
         /// <summary>
-        /// Deletes an asset.
+        /// Deletes an asset and its associated maintenance records.
         /// </summary>
         public async Task<bool> DeleteAssetAsync(string id)
         {
-            // Note: Permission checks (e.g., IT Department users cannot delete) should be handled in the controller.
             var asset = await _context.TrxAssets.FindAsync(id);
             if (asset == null)
             {
                 return false;
             }
 
+            // Find and remove related maintenance records
+            var maintenanceRecords = await _context.TrxMaintenanceRecords
+                .Where(r => r.LinkedAssetId == id)
+                .ToListAsync();
+
+            if (maintenanceRecords.Any())
+            {
+                _context.TrxMaintenanceRecords.RemoveRange(maintenanceRecords);
+            }
+
+            // Remove the asset itself
             _context.TrxAssets.Remove(asset);
+
+            // Save all changes to the database in a single transaction
             await _context.SaveChangesAsync();
             return true;
         }
