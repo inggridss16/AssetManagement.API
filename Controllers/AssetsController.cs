@@ -121,5 +121,34 @@ namespace AssetManagement.API.Controllers
             // Here, you would typically use a library like CsvHelper or EPPlus to generate a file.
             return Ok(assets);
         }
+
+        [HttpPost("AskForReview/{id}")]
+        public async Task<IActionResult> AskForReview(string id)
+        {
+            long currentUserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var asset = await _assetService.GetAssetByIdAsync(id);
+
+            if (asset == null)
+            {
+                return NotFound();
+            }
+
+            // Ensure the user asking for review is the one who requested the asset
+            // and the asset is in the correct state.
+            if (asset.RequesterId != currentUserId)
+            {
+                return Forbid();
+            }
+
+            if (asset.Status != "New")
+            {
+                return BadRequest("Asset is not in 'New' status.");
+            }
+
+            asset.Status = "Under Review";
+            await _assetService.UpdateAssetAsync(asset, currentUserId);
+
+            return NoContent();
+        }
     }
 }
