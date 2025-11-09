@@ -64,10 +64,27 @@ namespace AssetManagement.API.Services
         }
 
         /// <summary>
-        /// Retrieves all assets requested by a specific user.
+        /// Retrieves assets based on the user's department and ID.
         /// </summary>
-        public async Task<IEnumerable<TrxAsset>> GetAssetsByUserIdAsync(long userId)
+        public async Task<IEnumerable<TrxAsset>> GetAssetsByUserIdAsync(long userId, int departmentId)
         {
+            const int ITDepartmentId = 2;
+
+            if (departmentId == ITDepartmentId)
+            {
+                // Get all user IDs from the IT Department
+                var itUserIds = await _context.MstUsers
+                    .Where(u => u.DepartmentId == ITDepartmentId)
+                    .Select(u => u.Id)
+                    .ToListAsync();
+
+                // IT users can see all assets created by anyone in the IT Department
+                return await _context.TrxAssets
+                    .Where(a => itUserIds.Contains(a.RequesterId))
+                    .ToListAsync();
+            }
+
+            // For other departments, only show assets created by the current user
             return await _context.TrxAssets
                 .Where(a => a.RequesterId == userId)
                 .ToListAsync();

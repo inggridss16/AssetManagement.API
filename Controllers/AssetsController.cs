@@ -41,7 +41,8 @@ namespace AssetManagement.API.Controllers
         public async Task<IActionResult> GetAssetByCurrentUser()
         {
             long currentUserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var assets = await _assetService.GetAssetsByUserIdAsync(currentUserId);
+            int departmentId = int.Parse(User.FindFirstValue("DepartmentId"));
+            var assets = await _assetService.GetAssetsByUserIdAsync(currentUserId, departmentId);
             return Ok(assets);
         }
 

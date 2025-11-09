@@ -15,6 +15,6 @@ namespace AssetManagement.API.Services
         Task<TrxAsset> CreateAssetAsync(TrxAsset asset, long currentUserId);
         Task<TrxAsset> UpdateAssetAsync(TrxAsset asset, long currentUserId);
         Task<bool> DeleteAssetAsync(string id);
-        Task<IEnumerable<TrxAsset>> GetAssetsByUserIdAsync(long userId);
+        Task<IEnumerable<TrxAsset>> GetAssetsByUserIdAsync(long userId, int departmentId);
     }
 }
