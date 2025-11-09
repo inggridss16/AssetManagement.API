@@ -197,5 +197,26 @@ namespace AssetManagement.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}/approval-logs")]
+        public async Task<IActionResult> GetApprovalLogs(string id)
+        {
+            var approvalLogs = await _context.TrxAssetApprovals
+                .Where(a => a.AssetId == id)
+                .Join(_context.MstUsers,
+                    approval => approval.ApproverId,
+                    user => user.Id,
+                    (approval, user) => new TrxAssetApprovalDto
+                    {
+                        ApproverName = user.Name,
+                        Status = approval.Status,
+                        Comments = approval.Comments,
+                        ApprovalDate = approval.ApprovalDate
+                    })
+                .OrderBy(a => a.ApprovalDate)
+                .ToListAsync();
+
+            return Ok(approvalLogs);
+        }
     }
 }
