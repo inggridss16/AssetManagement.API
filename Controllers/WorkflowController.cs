@@ -18,6 +18,13 @@ namespace AssetManagement.API.Controllers
             _workflowService = workflowService;
         }
 
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetPendingApprovals()
+        {
+            long currentUserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var assets = await _workflowService.GetPendingApprovalsAsync(currentUserId);
+            return Ok(assets);
+        }
         [HttpPost("approve")]
         public async Task<IActionResult> ApproveOrReject([FromBody] ApprovalDto approvalDto)
         {

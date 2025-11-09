@@ -13,6 +13,17 @@ namespace AssetManagement.API.Services
             _context = context;
         }
 
+
+        public async Task<IEnumerable<TrxAsset>> GetPendingApprovalsAsync(long managerId)
+        {
+            var pendingAssetIds = await _context.TrxAssetApprovals
+                .Where(a => a.ApproverId == managerId && a.Status == "Pending")
+                .Select(a => a.AssetId)
+                .ToListAsync();
+
+            return await _context.TrxAssets
+                .Where(a => pendingAssetIds.Contains(a.Id)).ToListAsync();
+         }
         public async Task StartApprovalProcessAsync(string assetId, long requesterId)
         {
             var requester = await _context.MstUsers.FindAsync(requesterId);
@@ -23,7 +34,6 @@ namespace AssetManagement.API.Services
 
             var approvals = new List<TrxAssetApproval>();
 
-            // MODIFIED: Add approval for the Department Head (Supervisor) only if SupervisorId is not 0
             if (requester.SupervisorId != 0)
             {
                 approvals.Add(new TrxAssetApproval
@@ -36,14 +46,14 @@ namespace AssetManagement.API.Services
                 });
             }
 
-            // Find all Asset Managers in the same department
+            // Find all Asset Managers regardless of department
             var assetManagers = await _context.MstUsers
-                .Where(u => u.DepartmentId == requester.DepartmentId && u.IsAssetManager)
+                .Where(u => u.IsAssetManager)
                 .ToListAsync();
 
             if (!assetManagers.Any())
             {
-                throw new System.Exception($"No Asset Manager found in department ID {requester.DepartmentId}.");
+                throw new System.Exception($"No Asset Manager found in the system.");
             }
 
             foreach (var manager in assetManagers)
