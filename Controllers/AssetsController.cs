@@ -34,7 +34,24 @@ namespace AssetManagement.API.Controllers
         {
             var asset = await _assetService.GetAssetByIdAsync(id);
             if (asset == null) return NotFound();
-            return Ok(asset);
+
+            // Get the requester's name
+            var requester = await _context.MstUsers.FindAsync(asset.RequesterId);
+
+            // Return a more detailed object including the Requester's name.
+            return Ok(new
+            {
+                asset.Id,
+                asset.AssetName,
+                asset.Description,
+                asset.RequesterId,
+                RequesterName = requester?.Name, // Add requester name
+                asset.ResponsiblePersonId,
+                asset.Category,
+                asset.Subcategory,
+                asset.Status,
+                asset.AssetValue
+            });
         }
 
         [HttpGet("myAssets")]
