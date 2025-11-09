@@ -202,7 +202,7 @@ namespace AssetManagement.API.Controllers
         public async Task<IActionResult> GetApprovalLogs(string id)
         {
             var approvalLogs = await _context.TrxAssetApprovals
-                .Where(a => a.AssetId == id)
+                .Where(a => a.AssetId == id && a.Status != "Pending")
                 .Join(_context.MstUsers,
                     approval => approval.ApproverId,
                     user => user.Id,
