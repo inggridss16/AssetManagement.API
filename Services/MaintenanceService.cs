@@ -1,6 +1,7 @@
 ﻿// Services/MaintenanceService.cs
 using AssetManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging; // Added for logging
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace AssetManagement.API.Services
     public class MaintenanceService : IMaintenanceService
     {
         private readonly AssetManagementDbContext _context;
+        private readonly ILogger<MaintenanceService> _logger; // Added for logging
 
-        public MaintenanceService(AssetManagementDbContext context)
+        public MaintenanceService(AssetManagementDbContext context, ILogger<MaintenanceService> logger)
         {
             _context = context;
+            _logger = logger; // Injected logger
         }
 
         /// <summary>
@@ -22,13 +25,21 @@ namespace AssetManagement.API.Services
         /// </summary>
         public async Task<TrxMaintenanceRecord> AddMaintenanceRecordAsync(TrxMaintenanceRecord record, long currentUserId)
         {
-            record.CreatedBy = currentUserId;
-            record.CreatedDate = DateTime.UtcNow;
+            try
+            {
+                record.CreatedBy = currentUserId;
+                record.CreatedDate = DateTime.UtcNow;
 
-            _context.TrxMaintenanceRecords.Add(record);
-            await _context.SaveChangesAsync();
-            await UpdateTotalAssetValue(record.LinkedAssetId);
-            return record;
+                _context.TrxMaintenanceRecords.Add(record);
+                await _context.SaveChangesAsync();
+                await UpdateTotalAssetValue(record.LinkedAssetId);
+                return record;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while adding maintenance record for asset {AssetId}", record.LinkedAssetId);
+                throw; // Re-throwing the exception to be handled by a global exception handler
+            }
         }
 
         /// <summary>
@@ -36,13 +47,31 @@ namespace AssetManagement.API.Services
         /// </summary>
         public async Task<TrxMaintenanceRecord> UpdateMaintenanceRecordAsync(TrxMaintenanceRecord record, long currentUserId)
         {
-            record.UpdatedBy = currentUserId;
-            record.UpdatedDate = DateTime.UtcNow;
+            try
+            {
+                var existingRecord = await _context.TrxMaintenanceRecords.FindAsync(record.Id);
+                if (existingRecord == null)
+                {
+                    // Or throw a specific NotFoundException
+                    return null;
+                }
 
-            _context.TrxMaintenanceRecords.Update(record);
-            await _context.SaveChangesAsync();
-            await UpdateTotalAssetValue(record.LinkedAssetId);
-            return record;
+                existingRecord.UpdatedBy = currentUserId;
+                existingRecord.UpdatedDate = DateTime.UtcNow;
+                existingRecord.MaintenanceCost = record.MaintenanceCost;
+                // Update other properties as needed...
+
+
+                _context.TrxMaintenanceRecords.Update(existingRecord);
+                await _context.SaveChangesAsync();
+                await UpdateTotalAssetValue(existingRecord.LinkedAssetId);
+                return existingRecord;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating maintenance record with ID {RecordId}", record.Id);
+                throw;
+            }
         }
 
         /// <summary>
@@ -50,17 +79,26 @@ namespace AssetManagement.API.Services
         /// </summary>
         public async Task<bool> DeleteMaintenanceRecordAsync(long id)
         {
-            var record = await _context.TrxMaintenanceRecords.FindAsync(id);
-            if (record == null)
+            try
             {
-                return false;
-            }
+                var record = await _context.TrxMaintenanceRecords.FindAsync(id);
+                if (record == null)
+                {
+                    _logger.LogWarning("Delete operation failed: Maintenance record with ID {RecordId} not found.", id);
+                    return false;
+                }
 
-            var linkedAssetId = record.LinkedAssetId;
-            _context.TrxMaintenanceRecords.Remove(record);
-            await _context.SaveChangesAsync();
-            await UpdateTotalAssetValue(linkedAssetId);
-            return true;
+                var linkedAssetId = record.LinkedAssetId;
+                _context.TrxMaintenanceRecords.Remove(record);
+                await _context.SaveChangesAsync();
+                await UpdateTotalAssetValue(linkedAssetId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting maintenance record with ID {RecordId}", id);
+                throw;
+            }
         }
 
         /// <summary>
@@ -68,7 +106,15 @@ namespace AssetManagement.API.Services
         /// </summary>
         public async Task<TrxMaintenanceRecord> GetMaintenanceRecordByIdAsync(long id)
         {
-            return await _context.TrxMaintenanceRecords.FindAsync(id);
+            try
+            {
+                return await _context.TrxMaintenanceRecords.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while retrieving maintenance record with ID {RecordId}", id);
+                throw;
+            }
         }
 
         /// <summary>
@@ -76,9 +122,17 @@ namespace AssetManagement.API.Services
         /// </summary>
         public async Task<IEnumerable<TrxMaintenanceRecord>> GetMaintenanceRecordsForAssetAsync(string assetId)
         {
-            return await _context.TrxMaintenanceRecords
-                .Where(r => r.LinkedAssetId == assetId)
-                .ToListAsync();
+            try
+            {
+                return await _context.TrxMaintenanceRecords
+                    .Where(r => r.LinkedAssetId == assetId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while retrieving maintenance records for asset {AssetId}", assetId);
+                throw;
+            }
         }
 
         /// <summary>
@@ -86,17 +140,29 @@ namespace AssetManagement.API.Services
         /// </summary>
         private async Task UpdateTotalAssetValue(string assetId)
         {
-            var asset = await _context.TrxAssets.FindAsync(assetId);
-            if (asset != null)
+            try
             {
-                asset.AssetValue = await _context.TrxMaintenanceRecords
-                    .Where(r => r.LinkedAssetId == assetId)
-                    .SumAsync(r => r.MaintenanceCost);
+                var asset = await _context.TrxAssets.FindAsync(assetId);
+                if (asset != null)
+                {
+                    asset.AssetValue = await _context.TrxMaintenanceRecords
+                        .Where(r => r.LinkedAssetId == assetId)
+                        .SumAsync(r => r.MaintenanceCost);
 
-                // Requirement 15: Encryption for AssetValue should be handled here
-                // before saving. For example, using a data protection provider.
+                    // Requirement 15: Encryption for AssetValue should be handled here
+                    // before saving. For example, using a data protection provider.
 
-                await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    _logger.LogWarning("Could not update total asset value. Asset with ID {AssetId} not found.", assetId);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating total asset value for asset {AssetId}", assetId);
+                throw;
             }
         }
     }

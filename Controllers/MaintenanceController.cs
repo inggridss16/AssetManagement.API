@@ -43,7 +43,6 @@ namespace AssetManagement.API.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "manager")]
         public async Task<IActionResult> AddMaintenanceRecord(string assetId, [FromBody] MaintenanceCreateDto recordDto)
         {
             if (!ModelState.IsValid)
@@ -68,7 +67,6 @@ namespace AssetManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "manager")]
         public async Task<IActionResult> UpdateMaintenanceRecord(string assetId, long id, [FromBody] MaintenanceUpdateDto recordDto)
         {
             if (!ModelState.IsValid)
@@ -96,7 +94,6 @@ namespace AssetManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "manager")]
         public async Task<IActionResult> DeleteMaintenanceRecord(long id)
         {
             var success = await _maintenanceService.DeleteMaintenanceRecordAsync(id);
