@@ -1,8 +1,8 @@
-﻿// AssetsController.cs
-using AssetManagement.API.Models;
+﻿using AssetManagement.API.Models;
 using AssetManagement.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -14,10 +14,12 @@ namespace AssetManagement.API.Controllers
     public class AssetsController : ControllerBase
     {
         private readonly IAssetService _assetService;
+        private readonly AssetManagementDbContext _context;
 
-        public AssetsController(IAssetService assetService)
+        public AssetsController(IAssetService assetService, AssetManagementDbContext context)
         {
             _assetService = assetService;
+            _context = context;
         }
 
         [HttpGet]
@@ -99,14 +101,41 @@ namespace AssetManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "manager")]
+        [Authorize]
         public async Task<IActionResult> DeleteAsset(string id)
         {
-            // Requirement 10.2: Add a role check here.
-            // For example: if (User.IsInRole("IT_User")) return Forbid();
+            // Get current user's ID from the token claims
+            var currentUserId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            // Get the user's details from the database
+            var currentUser = await _context.MstUsers.FindAsync(currentUserId);
+            if (currentUser == null)
+            {
+                return Unauthorized(); // Should not happen if [Authorize] works
+            }
+
+            // Get the IT Department's ID
+            var itDepartment = await _context.MstDepartments
+                                             .FirstOrDefaultAsync(d => d.Id == 2);
+
+            // If for some reason the IT Department isn't in the database, deny deletion for safety.
+            if (itDepartment == null)
+            {
+                // Log an error and forbid for safety.
+                return Forbid();
+            }
+
+            // New Logic: A "user" in the "IT Department" cannot delete.
+            if (currentUser.Title.Equals("user", StringComparison.OrdinalIgnoreCase) && currentUser.DepartmentId == itDepartment.Id)
+            {
+                return Forbid("Users in the IT Department do not have permission to delete assets.");
+            }
 
             var success = await _assetService.DeleteAssetAsync(id);
-            if (!success) return NotFound();
+            if (!success)
+            {
+                return NotFound();
+            }
             return NoContent();
         }
 

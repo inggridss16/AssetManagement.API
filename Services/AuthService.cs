@@ -1,5 +1,4 @@
-﻿// Services/AuthService.cs
-using AssetManagement.API.Models;
+﻿using AssetManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -64,7 +63,8 @@ namespace AssetManagement.API.Services
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name),
                     // Add roles as claims
-                    new Claim(ClaimTypes.Role, user.Title)
+                    new Claim(ClaimTypes.Role, user.Title),
+                    new Claim("DepartmentId", user.DepartmentId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
